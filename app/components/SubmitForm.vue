@@ -101,20 +101,24 @@ onMounted(() => {
       </UFormGroup>
 
       <!-- Error Message -->
-      <UAlert v-if="error" color="error" icon="i-carbon-warning">
-        {{ error }}
-      </UAlert>
+      <div v-if="error" class="flex items-center gap-2 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm">
+        <UIcon name="i-carbon-warning" class="flex-shrink-0" />
+        <span>{{ error }}</span>
+      </div>
 
       <!-- Success Message -->
-      <UAlert v-if="success" color="success" icon="i-carbon-checkmark-filled">
-        提交成功！
-      </UAlert>
+      <div v-if="success" class="flex items-center gap-2 p-3 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-sm">
+        <UIcon name="i-carbon-checkmark-filled" class="flex-shrink-0" />
+        <span>提交成功！</span>
+      </div>
 
       <UButton
         type="submit"
         color="primary"
+        variant="solid"
         :loading="isSubmitting"
         block
+        class="text-white"
       >
         <template #leading>
           <UIcon name="i-carbon-send" />
