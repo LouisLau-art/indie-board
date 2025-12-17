@@ -3,30 +3,20 @@ const isDark = ref(false)
 
 function toggleTheme() {
   isDark.value = !isDark.value
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
-  }
+  document.documentElement.setAttribute('data-theme', isDark.value ? 'forest' : 'emerald')
 }
 
 onMounted(() => {
-  isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-  }
+  isDark.value = document.documentElement.getAttribute('data-theme') === 'forest'
 })
 </script>
 
 <template>
-  <button
-    class="btn-ghost p-2 rounded-full"
-    aria-label="切换主题"
-    @click="toggleTheme"
-  >
-    <span
-      :class="isDark ? 'i-carbon-sun' : 'i-carbon-moon'"
-      class="text-xl"
-    ></span>
-  </button>
+  <label class="swap swap-rotate btn btn-ghost btn-circle">
+    <input type="checkbox" :checked="isDark" @change="toggleTheme">
+    <!-- sun icon -->
+    <span class="swap-off i-carbon-sun text-xl"></span>
+    <!-- moon icon -->
+    <span class="swap-on i-carbon-moon text-xl"></span>
+  </label>
 </template>

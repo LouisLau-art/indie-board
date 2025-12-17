@@ -23,6 +23,8 @@
         "@unocss/nuxt": "^66.5.10",
         "@unocss/preset-icons": "^66.5.10",
         "@unocss/preset-uno": "^66.5.10",
+        "@ameinhardt/unocss-preset-daisy": "^1.1.8",
+        "daisyui": "^4.12.24",
         "@iconify-json/carbon": "^1.2.15",
         "typescript": "^5.9.3",
         "drizzle-kit": "^0.31.8",

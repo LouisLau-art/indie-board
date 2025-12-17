@@ -1,27 +1,20 @@
 <script setup lang="ts">
-// Simple dark mode toggle using document class
 const isDark = ref(false)
 
 function toggleTheme() {
   isDark.value = !isDark.value
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
-  }
+  // DaisyUI uses data-theme attribute
+  document.documentElement.setAttribute('data-theme', isDark.value ? 'forest' : 'emerald')
 }
 
-// Check system preference on mount
 onMounted(() => {
   isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-  }
+  document.documentElement.setAttribute('data-theme', isDark.value ? 'forest' : 'emerald')
 })
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+  <div class="min-h-screen bg-base-100 text-base-content transition-colors duration-300">
     <NuxtPage />
   </div>
 </template>
@@ -36,14 +29,15 @@ onMounted(() => {
   padding: 0;
 }
 
+/* Override DaisyUI theme fonts with system sans-serif */
 html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  scroll-behavior: smooth;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Override DaisyUI's --font-sans variable */
+:root {
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -56,11 +50,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: oklch(var(--bc) / 0.2);
   border-radius: 4px;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #475569;
 }
 </style>

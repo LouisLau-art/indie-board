@@ -74,59 +74,65 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="card">
-    <h2 class="font-bold text-xl flex items-center gap-2 mb-4">
-      <span class="i-carbon-add-alt text-emerald-500"></span>
-      提交新产品
-    </h2>
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title">
+        <span class="i-carbon-add-alt text-primary"></span>
+        提交新产品
+      </h2>
 
-    <form class="space-y-4" @submit.prevent="handleSubmit">
-      <div>
-        <label for="title" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">产品名称</label>
-        <input
-          id="title"
-          ref="titleInput"
-          v-model="title"
-          type="text"
-          class="input"
-          placeholder="例如：Vue.js"
+      <form class="space-y-4" @submit.prevent="handleSubmit">
+        <div class="form-control">
+          <label class="label" for="title">
+            <span class="label-text">产品名称</span>
+          </label>
+          <input
+            id="title"
+            ref="titleInput"
+            v-model="title"
+            type="text"
+            class="input input-bordered w-full"
+            placeholder="例如：Vue.js"
+            :disabled="isSubmitting"
+          >
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="url">
+            <span class="label-text">产品链接</span>
+          </label>
+          <input
+            id="url"
+            v-model="url"
+            type="text"
+            class="input input-bordered w-full"
+            placeholder="https://example.com"
+            :disabled="isSubmitting"
+          >
+        </div>
+
+        <!-- Error Message -->
+        <div v-if="error" class="alert alert-error">
+          <span class="i-carbon-warning"></span>
+          <span>{{ error }}</span>
+        </div>
+
+        <!-- Success Message -->
+        <div v-if="success" class="alert alert-success">
+          <span class="i-carbon-checkmark-filled"></span>
+          <span>提交成功！</span>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary w-full"
           :disabled="isSubmitting"
         >
-      </div>
-
-      <div>
-        <label for="url" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">产品链接</label>
-        <input
-          id="url"
-          v-model="url"
-          type="text"
-          class="input"
-          placeholder="https://example.com"
-          :disabled="isSubmitting"
-        >
-      </div>
-
-      <!-- Error Message -->
-      <div v-if="error" class="alert-error flex items-center gap-2">
-        <span class="i-carbon-warning"></span>
-        {{ error }}
-      </div>
-
-      <!-- Success Message -->
-      <div v-if="success" class="alert-success flex items-center gap-2">
-        <span class="i-carbon-checkmark-filled"></span>
-        提交成功！
-      </div>
-
-      <button
-        type="submit"
-        class="btn-primary w-full"
-        :disabled="isSubmitting"
-      >
-        <span v-if="isSubmitting" class="i-carbon-circle-dash animate-spin"></span>
-        <span v-else class="i-carbon-send"></span>
-        {{ isSubmitting ? '提交中...' : '提交产品' }}
-      </button>
-    </form>
+          <span v-if="isSubmitting" class="loading loading-spinner"></span>
+          <span v-else class="i-carbon-send"></span>
+          {{ isSubmitting ? '提交中...' : '提交产品' }}
+        </button>
+      </form>
+    </div>
   </div>
 </template>
