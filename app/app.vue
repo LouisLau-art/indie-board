@@ -1,20 +1,9 @@
 <script setup lang="ts">
-const isDark = ref(false)
-
-function toggleTheme() {
-  isDark.value = !isDark.value
-  // DaisyUI uses data-theme attribute
-  document.documentElement.setAttribute('data-theme', isDark.value ? 'forest' : 'emerald')
-}
-
-onMounted(() => {
-  isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
-  document.documentElement.setAttribute('data-theme', isDark.value ? 'forest' : 'emerald')
-})
+// Una UI handles dark mode automatically
 </script>
 
 <template>
-  <div class="min-h-screen bg-base-100 text-base-content transition-colors duration-300">
+  <div class="min-h-screen bg-base text-base transition-colors duration-300">
     <NuxtPage />
   </div>
 </template>
@@ -29,15 +18,11 @@ onMounted(() => {
   padding: 0;
 }
 
-/* Override DaisyUI theme fonts with system sans-serif */
+/* Override fonts with system sans-serif */
 html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   scroll-behavior: smooth;
-}
-
-/* Override DaisyUI's --font-sans variable */
-:root {
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -50,7 +35,11 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: oklch(var(--bc) / 0.2);
+  background: var(--una-gray-300);
   border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--una-gray-600);
 }
 </style>

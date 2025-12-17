@@ -1,22 +1,22 @@
 <script setup lang="ts">
-const isDark = ref(false)
+const colorMode = useColorMode()
+
+const isDark = computed(() => colorMode.value === 'dark')
 
 function toggleTheme() {
-  isDark.value = !isDark.value
-  document.documentElement.setAttribute('data-theme', isDark.value ? 'forest' : 'emerald')
+  colorMode.preference = isDark.value ? 'light' : 'dark'
 }
-
-onMounted(() => {
-  isDark.value = document.documentElement.getAttribute('data-theme') === 'forest'
-})
 </script>
 
 <template>
-  <label class="swap swap-rotate btn btn-ghost btn-circle">
-    <input type="checkbox" :checked="isDark" @change="toggleTheme">
-    <!-- sun icon -->
-    <span class="swap-off i-carbon-sun text-xl"></span>
-    <!-- moon icon -->
-    <span class="swap-on i-carbon-moon text-xl"></span>
-  </label>
+  <UButton
+    variant="ghost"
+    icon
+    @click="toggleTheme"
+  >
+    <UIcon
+      :name="isDark ? 'i-carbon-sun' : 'i-carbon-moon'"
+      class="text-xl"
+    />
+  </UButton>
 </template>

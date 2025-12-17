@@ -5,10 +5,21 @@ export default defineNuxtConfig({
     propsDestructure: true,
   },
 
-  // Modules
+  // Modules - Una UI includes UnoCSS automatically
   modules: [
-    '@unocss/nuxt',
+    '@una-ui/nuxt',
   ],
+
+  // Una UI configuration
+  una: {
+    // Una UI prefix for components (e.g., <UButton>)
+    prefix: 'U',
+    // Theme configuration
+    ui: {
+      // Primary color
+      primary: 'emerald',
+    },
+  },
 
   // Development tools
   devtools: { enabled: true },

@@ -74,65 +74,53 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="card bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h2 class="card-title">
-        <span class="i-carbon-add-alt text-primary"></span>
+  <UCard>
+    <template #header>
+      <div class="flex items-center gap-2 font-bold">
+        <UIcon name="i-carbon-add-alt" class="text-primary text-xl" />
         提交新产品
-      </h2>
+      </div>
+    </template>
 
-      <form class="space-y-4" @submit.prevent="handleSubmit">
-        <div class="form-control">
-          <label class="label" for="title">
-            <span class="label-text">产品名称</span>
-          </label>
-          <input
-            id="title"
-            ref="titleInput"
-            v-model="title"
-            type="text"
-            class="input input-bordered w-full"
-            placeholder="例如：Vue.js"
-            :disabled="isSubmitting"
-          >
-        </div>
-
-        <div class="form-control">
-          <label class="label" for="url">
-            <span class="label-text">产品链接</span>
-          </label>
-          <input
-            id="url"
-            v-model="url"
-            type="text"
-            class="input input-bordered w-full"
-            placeholder="https://example.com"
-            :disabled="isSubmitting"
-          >
-        </div>
-
-        <!-- Error Message -->
-        <div v-if="error" class="alert alert-error">
-          <span class="i-carbon-warning"></span>
-          <span>{{ error }}</span>
-        </div>
-
-        <!-- Success Message -->
-        <div v-if="success" class="alert alert-success">
-          <span class="i-carbon-checkmark-filled"></span>
-          <span>提交成功！</span>
-        </div>
-
-        <button
-          type="submit"
-          class="btn btn-primary w-full"
+    <form class="space-y-4" @submit.prevent="handleSubmit">
+      <UFormGroup label="产品名称">
+        <UInput
+          ref="titleInput"
+          v-model="title"
+          placeholder="例如：Vue.js"
           :disabled="isSubmitting"
-        >
-          <span v-if="isSubmitting" class="loading loading-spinner"></span>
-          <span v-else class="i-carbon-send"></span>
-          {{ isSubmitting ? '提交中...' : '提交产品' }}
-        </button>
-      </form>
-    </div>
-  </div>
+        />
+      </UFormGroup>
+
+      <UFormGroup label="产品链接">
+        <UInput
+          v-model="url"
+          placeholder="https://example.com"
+          :disabled="isSubmitting"
+        />
+      </UFormGroup>
+
+      <!-- Error Message -->
+      <UAlert v-if="error" color="error" icon="i-carbon-warning">
+        {{ error }}
+      </UAlert>
+
+      <!-- Success Message -->
+      <UAlert v-if="success" color="success" icon="i-carbon-checkmark-filled">
+        提交成功！
+      </UAlert>
+
+      <UButton
+        type="submit"
+        color="primary"
+        :loading="isSubmitting"
+        block
+      >
+        <template #leading>
+          <UIcon name="i-carbon-send" />
+        </template>
+        {{ isSubmitting ? '提交中...' : '提交产品' }}
+      </UButton>
+    </form>
+  </UCard>
 </template>

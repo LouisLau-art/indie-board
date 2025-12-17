@@ -59,19 +59,20 @@ const domain = computed(() => {
 </script>
 
 <template>
-  <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-    <div class="card-body flex-row items-center gap-4 p-4">
+  <UCard class="transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div class="flex items-center gap-4">
       <!-- Vote Button -->
-      <button
-        class="btn btn-square btn-lg flex-col h-auto py-2 gap-0"
-        :class="hasVoted ? 'btn-success' : 'btn-ghost'"
-        :disabled="isVoting || hasVoted"
+      <UButton
+        :color="hasVoted ? 'success' : 'gray'"
+        :loading="isVoting"
+        :disabled="hasVoted"
+        variant="soft"
+        class="flex flex-col items-center min-w-16 h-auto py-3 gap-0"
         @click="handleVote"
       >
-        <span v-if="isVoting" class="loading loading-spinner"></span>
-        <span v-else :class="hasVoted ? 'i-carbon-checkmark-filled' : 'i-carbon-arrow-up'" class="text-xl"></span>
+        <UIcon :name="hasVoted ? 'i-carbon-checkmark-filled' : 'i-carbon-arrow-up'" class="text-xl" />
         <span class="font-bold text-lg">{{ product.votes }}</span>
-      </button>
+      </UButton>
 
       <!-- Product Info -->
       <div class="flex-1 min-w-0">
@@ -79,27 +80,26 @@ const domain = computed(() => {
           :href="product.url"
           target="_blank"
           rel="noopener noreferrer"
-          class="link link-hover flex items-center gap-2 text-lg font-bold"
+          class="flex items-center gap-2 hover:text-primary transition-colors"
         >
-          <span class="truncate">{{ product.title }}</span>
-          <span class="i-carbon-launch text-sm opacity-50"></span>
+          <span class="font-bold text-lg truncate">{{ product.title }}</span>
+          <UIcon name="i-carbon-launch" class="text-sm opacity-50" />
         </a>
         <div class="flex items-center gap-3 mt-1 text-sm opacity-60">
           <span class="flex items-center gap-1">
-            <span class="i-carbon-link"></span>
+            <UIcon name="i-carbon-link" />
             {{ domain }}
           </span>
           <span class="flex items-center gap-1">
-            <span class="i-carbon-calendar"></span>
+            <UIcon name="i-carbon-calendar" />
             {{ formattedDate }}
           </span>
         </div>
         <!-- Vote Error Message -->
-        <div v-if="voteError" class="alert alert-warning py-1 px-2 mt-2 text-xs">
-          <span class="i-carbon-warning"></span>
-          <span>{{ voteError }}</span>
-        </div>
+        <UAlert v-if="voteError" color="warning" class="mt-2 py-1">
+          {{ voteError }}
+        </UAlert>
       </div>
     </div>
-  </div>
+  </UCard>
 </template>

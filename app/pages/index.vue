@@ -48,23 +48,20 @@ function handleSubmit() {
 
 <template>
   <div class="min-h-screen">
-    <!-- Navbar -->
-    <div class="navbar bg-base-100/80 backdrop-blur-lg sticky top-0 z-50 border-b border-base-200">
-      <div class="max-w-4xl mx-auto w-full px-4">
-        <div class="flex-1">
-          <div class="flex items-center gap-3">
-            <span class="i-carbon-rocket text-3xl text-primary animate-pulse"></span>
-            <div>
-              <h1 class="font-bold text-xl">Indie Board</h1>
-              <p class="text-xs opacity-60">独立产品发现榜</p>
-            </div>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-base/80 backdrop-blur-lg border-b border-base">
+      <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <UIcon name="i-carbon-rocket" class="text-3xl text-primary animate-pulse" />
+          <div>
+            <h1 class="font-bold text-xl">Indie Board</h1>
+            <p class="text-xs opacity-60">独立产品发现榜</p>
           </div>
         </div>
-        <div class="flex-none">
-          <ThemeToggle />
-        </div>
+
+        <ThemeToggle />
       </div>
-    </div>
+    </header>
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 py-8">
@@ -73,22 +70,20 @@ function handleSubmit() {
         <section class="lg:col-span-2 space-y-4">
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-bold flex items-center gap-2">
-              <span class="i-carbon-trending-up text-primary"></span>
+              <UIcon name="i-carbon-trending-up" class="text-primary" />
               热门产品
             </h2>
-            <div class="badge badge-ghost gap-1">
-              <span class="loading loading-ring loading-xs"></span>
+            <UBadge color="gray" variant="soft">
+              <UIcon name="i-carbon-renewal" class="animate-spin mr-1" />
               实时更新中
-            </div>
+            </UBadge>
           </div>
 
           <!-- Empty State -->
-          <div v-if="!products.length" class="card bg-base-100 shadow-xl">
-            <div class="card-body items-center text-center py-12">
-              <span class="i-carbon-cube text-6xl opacity-20"></span>
-              <p class="opacity-60">暂无产品，快来提交第一个吧！</p>
-            </div>
-          </div>
+          <UCard v-if="!products.length" class="text-center py-12">
+            <UIcon name="i-carbon-cube" class="text-6xl opacity-20 mb-4" />
+            <p class="opacity-60">暂无产品，快来提交第一个吧！</p>
+          </UCard>
 
           <!-- Products -->
           <TransitionGroup
@@ -111,35 +106,35 @@ function handleSubmit() {
             <SubmitForm @submit="handleSubmit" />
 
             <!-- Info Card -->
-            <div class="card bg-base-100 shadow-xl">
-              <div class="card-body">
-                <h3 class="card-title text-sm">
-                  <span class="i-carbon-information text-primary"></span>
+            <UCard>
+              <template #header>
+                <div class="flex items-center gap-1 text-sm font-medium">
+                  <UIcon name="i-carbon-information" class="text-primary" />
                   关于
-                </h3>
-                <p class="text-sm opacity-70 leading-relaxed">
-                  Indie Board 是一个极简的独立产品发现榜，帮助您发现优秀的独立开发者作品。
-                </p>
-                <p class="text-xs opacity-50 mt-2">
-                  每个 IP 每 24 小时对同一产品只能投票一次
-                </p>
-              </div>
-            </div>
+                </div>
+              </template>
+              <p class="text-sm opacity-70 leading-relaxed">
+                Indie Board 是一个极简的独立产品发现榜，帮助您发现优秀的独立开发者作品。
+              </p>
+              <p class="text-xs opacity-50 mt-2">
+                每个 IP 每 24 小时对同一产品只能投票一次
+              </p>
+            </UCard>
           </div>
         </aside>
       </div>
     </main>
 
     <!-- Footer -->
-    <footer class="footer footer-center p-8 text-base-content/60">
-      <div class="flex items-center gap-1">
+    <footer class="py-8 text-center text-sm opacity-60">
+      <p class="flex items-center justify-center gap-1">
         Made with
-        <span class="i-carbon-favorite-filled text-error animate-pulse"></span>
+        <UIcon name="i-carbon-favorite-filled" class="text-error animate-pulse" />
         using
-        <a href="https://nuxt.com" target="_blank" class="link link-primary">Nuxt</a>
+        <a href="https://nuxt.com" target="_blank" class="text-primary hover:underline">Nuxt</a>
         +
-        <a href="https://daisyui.com" target="_blank" class="link link-primary">DaisyUI</a>
-      </div>
+        <a href="https://unaui.com" target="_blank" class="text-primary hover:underline">Una UI</a>
+      </p>
     </footer>
   </div>
 </template>
