@@ -8,13 +8,14 @@
 - ➕ **提交功能** - 简单的表单提交新产品
 - 👍 **点赞系统** - 每 IP 每 24 小时限投一票
 - 🔄 **实时更新** - 5 秒轮询同步最新数据
-- 🌙 **暗色模式** - 支持 Emerald/Forest 主题切换
+- 🌙 **暗色模式** - 支持亮色/暗色主题切换
 
 ## 🛠 技术栈 (Bleeding Edge)
 
 - **Framework**: [Nuxt 4.2.2](https://nuxt.com)
 - **UI**: [Vue 3.5.25](https://vuejs.org) (Reactive Props Destructure, useTemplateRef)
-- **Styling**: [UnoCSS 66.x](https://unocss.dev) + [DaisyUI 4.12.24](https://daisyui.com)
+- **Components**: [Una UI 1.0.0-alpha.12](https://unaui.com) (UnoCSS-native)
+- **CSS Engine**: [UnoCSS](https://unocss.dev) (内置于 Una UI)
 - **Database**: [Better-SQLite3 12.x](https://github.com/WiseLibs/better-sqlite3) + [Drizzle ORM 0.45.x](https://orm.drizzle.team)
 - **Runtime**: Bun
 
@@ -41,25 +42,29 @@ indie-board/
 │   ├── pages/
 │   │   └── index.vue        # 主页
 │   └── components/
-│       ├── ProductCard.vue  # 产品卡片
-│       ├── SubmitForm.vue   # 提交表单
+│       ├── ProductCard.vue  # 产品卡片 (Una UI)
+│       ├── SubmitForm.vue   # 提交表单 (Una UI)
 │       └── ThemeToggle.vue  # 主题切换
 ├── server/                   # Nitro 服务端
 │   ├── api/products/        # API 路由
 │   ├── database/            # Drizzle ORM
 │   └── plugins/             # 数据库初始化
 ├── public/                   # 静态资源
-├── nuxt.config.ts           # Nuxt 配置
-├── uno.config.ts            # UnoCSS + DaisyUI 配置
+├── nuxt.config.ts           # Nuxt + Una UI 配置
 └── drizzle.config.ts        # Drizzle 配置
 ```
 
-## 🎨 DaisyUI 主题
+## 🎨 Una UI 组件
 
-使用 `@ameinhardt/unocss-preset-daisy` 集成 DaisyUI：
+使用 Una UI 提供的原生 UnoCSS 组件：
 
-- **亮色**: Emerald 主题
-- **暗色**: Forest 主题
+- `<UCard>` - 卡片容器
+- `<UButton>` - 按钮组件
+- `<UInput>` - 输入框
+- `<UFormGroup>` - 表单分组
+- `<UAlert>` - 提示信息
+- `<UIcon>` - 图标（基于 Iconify）
+- `<UBadge>` - 徽章标签
 
 ## 📝 API
 
