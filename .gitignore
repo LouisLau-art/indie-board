@@ -1,0 +1,30 @@
+# Dependencies
+node_modules
+
+# Build
+.nuxt
+.output
+dist
+
+# Database
+*.db
+*.db-wal
+*.db-shm
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+!.env.example
